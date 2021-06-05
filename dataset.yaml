@@ -1,5 +1,5 @@
 train: ../robots-repo-imagenes/images/mates/ 
-val: ../robots-repo-imagenes/images/val/
+val: ../robots-repo-imagenes/val/
 
 # number of classes
 nc: 5
