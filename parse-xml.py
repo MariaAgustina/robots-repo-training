@@ -2,8 +2,8 @@ import os
 import xml.etree.ElementTree as ET
 import math
 
-xml_dir = "mate-detection/labels/mates/"
-img_dir = "mate-detection/images/mates/"
+xml_dir = "../../repo-imagenes/robots-repo-imagenes/labels/mates/"
+img_dir = "../../repo-imagenes/robots-repo-imagenes/images/mates/"
 labels = ["mate","calabaza","metal","madera","plastico"] #TODO: estaria bueno unificar con los que son Mate, Madera, Plastico, Calabaza, Metal
 tamanio = 416
 mejores_pesos = "red_lego.h5"
@@ -37,8 +37,6 @@ def generate_file(img,filename):
         height = ((ymax - ymin))/image_height
 
         file_line = image_class + " " + str(x_center) + " " + str(y_center) + " " + str(width) + str(height)
-
-        print(file_line)
 
         outF.write(file_line)
         outF.write("\n")
@@ -91,7 +89,11 @@ def leer_annotations(ann_dir, img_dir, labels=[]):
                                 obj['ymax'] = int(round(float(dim.text)))
  
         if len(img['object']) > 0:
-            file_name = "file_" + str(count) + ".txt"
+            dir_txt_name = os.path.splitext(img['filename'])[0] + '.txt'
+            dir_list = dir_txt_name.split('/')
+            last_element = len(dir_list) - 1 
+            file_name = dir_list[last_element]
+
             generate_file(img,file_name)
             all_imgs += [img]
             count += 1
